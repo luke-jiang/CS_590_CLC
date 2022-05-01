@@ -1,0 +1,150 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{CS 590 Homework 2}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{March 1, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+\begin{itemize}
+\item server virtualization: Server virtualization is a process that creates and abstracts multiple virtual instances on a single server. A server administrator uses virtualization software to partition one physical server into multiple isolated virtual environments; each virtual environment is capable of running independently. 
+\item network virtualization: network virtualization is the process of combining hardware and software network resources and network functionality into a single, software-based administrative entity, called a virtual network.
+\item storage virtualization: storage virtualization is the process of presenting a logical view of the physical storage resources to a host computer system, treating all storage media in the enterprise as a single pool of storage.
+\end{itemize}
+
+\section{Question 2}
+\begin{itemize}
+\item When a virtual machine is spun up, server virtualization is used.
+\item Chief characteristics:
+    \begin{itemize}
+    \item a VM appears to be identical to a conventional computer, including the complete instruction set.
+    \item a VM also seems to have its own address space, storage, and network IP.
+    \item multiple VMs are completely isolated from each other
+    \end{itemize}
+\end{itemize}
+
+\section{Question 3}
+A hypervisor.
+
+\section{Question 4}
+\begin{itemize}
+\item VM migration refers to the process of moving a VM from one physical server to another.
+\item VM migration is possible because VMs communicate with hardware indirectly through hypervisors. They are not dependent on hardware.
+\item Steps to migrate a VM:
+    \begin{itemize}
+    \item Step 1 (pre-copy): The entire memory of the VM is copied to the new server while the VM continues to run.
+    \item Step 2 (stop-and-copy): The VM is temporarily suspended, and any pages that changed after the phase 1 copy are copied again.
+    \item Step 3 (post-copy): The hypervisor sends remaining state information
+to the hypervisor on the new server. The hypervisor on the new server uses the information to allow the VM to continue executing.
+    \end{itemize}
+\end{itemize}
+
+
+\section{Question 5}
+\begin{itemize}
+\item A container consists of an isolated environment in which an application
+can run.
+\item A container requires \textit{docker daemon} and \textit{docker} to run. The former controls and manages all running containers. The latter is a user-interface app.
+\end{itemize}
+
+\section{Question 6}
+\begin{itemize}
+\item The programmer means that the Docker project has \textit{Docker Hub}, an extensive registry of open source software that is ready to use. A user can combine pieces from the registry similar to how a library is used. 
+\item Steps to create a containerized application:
+    \begin{itemize}
+    \item Step 1. set up docker environment.
+    \item Step 2. write application code that are not available in the registry
+    \item Step 3. write a Dockerfile that gives instructions on how to build a complete image from registry images and code written in step 2.
+    \item Step 4. build the image using Dockerfile and run the image in Docker.
+    \end{itemize}
+\item The programmer uses Dockerfile to build the containerized application
+\item The programmer should consider the following factors when building a partial image:
+    \begin{itemize}
+    \item avoid re-inventing the wheel: the programmer should check if there is an image already available that has the same functionality.
+    \item minimize the size of final image: the output image should be as small as possible. 
+    \item minimize package redundancy: the programmer should avoid installing extra or unnecessary packages.
+    \item generality: the docker image should be free from unnatural restrictions and limitations such that it is easy to change to suit different applications.
+    \item good abstraction: the user interface of the image should be well-defined and easy to integrate with other applications.
+    \end{itemize}
+\item The programmer can use multi-stage build and build cache to reduce the size of the final image. The Dockerfile and other source code should be commented and documented clearly so that another programmer can quickly understand the source code and make modifications. The programmer should also define a good interface that maximizes the input space of the image program to increase generality and usefulness.
+\end{itemize}
+
+\section{Question 7}
+\begin{itemize}
+\item The base OS acts as an interface between the app software and the host OS. This additional level of abstraction makes containers usable across different base OS's. 
+\item the following functionalities should be included in the base OS:
+    \begin{itemize}
+    \item standard terminal input/output/error descriptors
+    \item A shell and shell commands like apt, ls, cd, pwd
+    \item an editor to view and edit code
+    \item support for a file system
+    \item support for communication over the Internet
+    \end{itemize}
+\item More functionalities makes it easier for the user to use, it also makes the image size larger. Less functionalities makes the image more lightweight, but it also limits the user from interacting with the container more naturally.
+\item How to accommodate a set of needs:
+    We can model the accommodation problem using a dependency graph. In such a graph, each node represents a functionality, and each edge (X, Y) represents that functionality X is dependent on functionality Y, which means that in order to accommodate X, we must have Y first. Starting with a list of needs, we can build such a dependency graph and obtain a list of basic functionalities, which correspond to the sink nodes of the graph. We can then inspect this list and filter out the functionalities that are not provided by the host OS. These are the functionalities the base OS must provide.
+\end{itemize}
+
+
+\section{Question 8}
+\begin{itemize}
+    \item advantages of VM: 
+        \begin{itemize}
+        \item VMs support arbitrary operating systems that go beyond the limitation of hardware.
+        \item VMs emulate the hardware so faithfully that operating system code runs with no changes.
+        \end{itemize}
+    \item disadvantages of VM:
+        \begin{itemize}
+        \item Creating a VM takes more time than launching an application
+        \item VMs Introduce extra computational overhead (e.g. scheduling) on a server Cloud
+        % \item VMs are less efficient than real machines because they have computational overhead due to scheduling.
+        \item VMs are not suitable for rapid elasticity.
+        \item VM migration is tricky and complicated.
+        \end{itemize}
+    \item advantages of Containers:
+        \begin{itemize}
+        \item Containers are lightweight and fast to launch, thus suitable for rapid elasticity.
+        \item Containers are easy to be merged together.
+        \item Containers are easy to be migrated and distributed.
+        \end{itemize}
+    \item disadvantages of Containers:
+        \begin{itemize}
+        \item Containers are limited by their host operating system.
+        \item Containers are not as secure as VMs.
+        \end{itemize}
+\end{itemize}
+
+
+\section{Question 9}
+No. Data storage is not persistent for containers. Once a container has stopped running, all its stored data no longer exists.
+
+\section{Question 10}
+\begin{itemize}
+    \item advantages of approach 1: 
+        \begin{itemize}
+        \item No overhead of fetching the image from the data center.
+        \item The app image is more standalone and secure.
+        \end{itemize}
+    \item disadvantages of approach 1:
+        \begin{itemize}
+        \item The size of the final image will be larger
+        \item Cannot easily change the binary code without changing the image
+        \end{itemize}
+    \item advantages of approach 2:
+        \begin{itemize}
+        \item The final image size is smaller
+        \item The app image can be updated without changing the final image
+        \end{itemize}
+    \item disadvantages of approach 2:
+        \begin{itemize}
+        \item Overhead of fetching the image from the data center.
+        \item If the image in the data center is changed, the image may not remain working.
+        \end{itemize}
+\end{itemize}
+
+
+\end{document}

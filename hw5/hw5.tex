@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{CS 590 Homework 4}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{April 5, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+I will join the microservices team. Even though converting a monolithic project of 500,000 lines of code into microservices is no trivial task and may take a lot of time, microservices are easier to launch and scale-up than the monolithic version. If the application must be used by many users at the same time, then the microservice version will have the better result. Moreover, disaggregating the monolithic application may produce new optimization opportunities that will improve the performance of the application.
+
+\section{Question 2}
+It still makes sense. Even though the interaction of these five functions are simple, the functions themselves may be very complex and can be factored into multiple subroutines that interact in more complex ways. It is also possible that there are same code in each function that can be factored out. Therefore, converting it into microservices may still be beneficial.
+
+\section{Question 3}
+I support proposal 1. If each function is placed in a separate microservice, then the communication overhead will be too large, and each microservice does not really contain a well-defined application. As a result, it will be hard to reason about the interactions and inter-dependencies of these microservices. Moreover, launching 284 containers will potentially cost much more, especially if the application needs to be scaled up. 
+
+% TODO: fix me
+\section{Question 4}
+\begin{itemize}
+    \item Inline Shopping Microservice: (N) = 1000
+    \item Payment Processing Microservice: (N * (1-P\%) * Q\%) = 10
+    \item Shipping Info Microservice: (N * (1-P\%) * Q\%) = 10
+    \item Catalog search Microservice: (N * P) + N * (1-P\%) * (1-2Q\%) = 980
+\end{itemize}
+
+\section{Question 5}
+Since it's possible for the return information to contain thousands of entries, we should use data streaming (i.e. gPRC) protocol.
+
+\section{Question 6}
+Suppose the patient is in emergent need of increasing injection rate. The measurement message corresponding to this situation maybe delayed due to slow Internet connection, and the server cannot response in time and the device will continue injecting medicine at the same rate.
+
+\section{Question 7}
+Sampling temperature too frequently may make the sampled result contain more fluctuations instead of reflecting the average temperature of the room, and air conditioners must switch between heating and cooling every few minutes. This maybe harmful to the air conditioner.
+
+\section{Question 8}
+Kubernetes uses an event-driven approach such that the control loop is only triggered when a change occurs and a message is passed to inform the controller. Therefore, periodic checks and delays are not needed.
+
+\section{Question 9}
+Reconcile is a piece of code written by a programmer to specify how to align the current state of a computation with the desired state. Reconcile will be called by Kubernetes automatically when needed.
+
+\section{Question 10}
+Reactive planning denotes the rapid planning required to accommodate new conditions of cloud applications. Since a Kubernetes control loop is triggered whenever a change is detected, it responses changes rapidly and falls into the category of reactive planning.
+
+\end{document}

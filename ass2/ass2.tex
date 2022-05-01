@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{listings}
+
+\title{CS 590 Assignment 2}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{Feburary 22, 2021}
+
+\begin{document}
+
+\maketitle
+% http://184.73.111.95/
+\section{Web server log from part 3}
+The following screenshot shows my web server log: \\
+\includegraphics[scale=0.5]{ass2-log.png}
+
+
+\section{Application from part 4}
+I used python docker API to create an application that prints out the log of my running container in part 3. The following code snippet is my implementation:
+\begin{lstlisting}
+#!/usr/bin/python
+
+import docker
+
+client = docker.from_env()
+container = client.containers.get("63054f195cca")
+log = container.logs().decode("utf-8")
+print(log)
+\end{lstlisting}
+The output is the screenshot showed in section 1.
+
+
+\end{document}

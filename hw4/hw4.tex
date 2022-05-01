@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{CS 590 Homework 4}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{March 27, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+Advantages of running existing version:
+\begin{itemize}
+    \item Existing version is ready to run on the cloud, but building a new, cloud-native version requires extra time and effort.
+    \item A cloud provider will charge more if the cloud-native application uses multiple servers.
+    \item Cloud-native version may introduce new security issues.
+\end{itemize}
+Advantages of building a new, cloud-native version:
+\begin{itemize}
+    \item Cloud-native version is more scalable by leveraging extreme parallelism offered by cloud platform.
+    \item Cloud-native version may have reduced software flaws if programmers use new tools to detect bugs.
+    \item Cloud-native version is also more reliable. A computation can be done on multiple servers and use a consensus algorithm to select the final answer.
+\end{itemize}
+
+\section{Question 2}
+\begin{itemize}
+    \item Partitioning: a problem must be divided into subproblems, such that each subproblem can be handled separately.
+    \item Parallel Computation: processors work simultaneously on their part of the problem.
+    \item Combination of the results: once the subproblems have been solved, the results must be combined to produce a final answer.
+\end{itemize}
+
+\section{Question 3}
+In the conceptual model, the \textit{Combination} step uses a single processor to combine results. In MapReduce, however, results from the parallel computation are shuffled to a second set of processors, each of which performs a small combination task. There is also a \textit{Merge} step in MapReduce that combines results of combination tasks and procudes the final output. 
+
+\section{Question 4}
+\begin{itemize}
+    \item Meaningful data pieces: If input data are consists of meaningful pieces, then each entire piece must be considered as one input. For example, if the data is structured in JSON format, then splitting a JSON object into multiple pieces will break the syntax structure of the data.
+    \item Equal-sized chunks: Divide input data into equal-sized chunks. If the input is an array of integers and we want to find the maximum, we can divide the array into equal chunks.
+    \item Hashed data values: If the data arrives with an identifying key, it may be possible to compute the hash of each key. For example, if the input data is a table from a relational database, then we can divide the input data based on the hash of the table key.
+\end{itemize}
+
+\section{Question 5}
+It makes sense to use MapReduce. The input data (video) can be divided into smaller pieces, each can be transcoded into the specified resolution, and then concatenated together. Furthermore, if the user jumps to a specified time in a video, then a single processor must start transcoding that frame from start, which may cause delay. In MapReduce, however, that frame may already be processed by another processor in parallel, which reduces latency.
+
+\section{Question 6}
+The total number of files is 200 times more than before.\\
+Assumptions:
+\begin{itemize}
+    \item Files are about the same size
+    \item Each file has a unique filename
+    \item We have an unlimited number of processors, each can run a single scanner program.
+\end{itemize}
+Approach:
+\begin{itemize}
+    \item Partition: Use a hash function to map the filename to 200 processors.
+    \item Map: Each processor keeps a map. The key of the map is the bug signature. The value of the map is the occurrence of that bug (a record of filename and offset in that file). When a processor receives a file, it scans the file by running the scanner program and updates the map.
+    \item Shuffle: Allocate another set of processors, each handles a couple signatures. Results of each processor in the previous step are sent to a reduce processor based on its signature.
+    \item Reduce: Each reduce processor combines results sent from map processor and send the combined result to merge.
+    \item Merge: merge concatenates results from the reduce processors and gives the final output.
+\end{itemize}
+
+
+\section{Question 7}
+(a)\\ In the word count example, results of a word count in two chapters are reduced by addition, because we want the result of total occurences for each word. In this application, the result consists of a tuple (play/poem of occurence, line number, context). The reduce process will be different. Instead of doing number addition, we should do list append so that in the end, each word is mapped to a list of such tuples.\\
+(b)\\ The final output will be a map. The keys of the map are words. The values are lists of tuples, each of which denotes an occurrence of that word.
+Suppose on average, a word occurs k times in the corpus. That is, the average size of a tuple list is k. Suppose that the input corpus contains N words. Suppose on average, a word is a string of d characters. Assume we use 4-byte integers to encode occurrence and line number, the output size will be $d * N + N * k * (4 + 4 + 9*d)$ bytes.
+
+
+\section{Question 8}
+If the 16 Gigabyte data is equally divided in 512 computers performing MapReduce, each computer will process 16 Gigabyte / 512 = 31.25 Megabyte. This size is maybe too small to compensate the MapReduce overhead. Some sites recommend splitting the input blocks into at least 64 Megabytes. If we follow this recommendation, then we only need 16 Gigabyte / 64 Megabyte = 250 computers.
+
+
+\section{Question 9}
+If the HDFS have saved snapshots of the NameNode, we can still recover the file system using the last snapshot. If the HDFS has a redundant NameNode, we can use that redundant node to recover. If the system has neither, we can reconstruct the HDFS by scanning the whole disk looking for DataNode, and reconstruct the NameNode from the DataNodes. Starting with an empty NameNode with empty mapping p, for each table block i in DataNode j, we do the following update: $p[i] \leftarrow p[i] \textit{++} j$. In the end, p will contain all the information in the original NameNode.
+
+
+\section{Question 10}
+The complaint is not justified. Hadoop offers a programmer a way to experiment with Hadoop software on a single computer. So the Hadoop team can still experiment with Hadoop without access to AWS.
+
+\end{document}

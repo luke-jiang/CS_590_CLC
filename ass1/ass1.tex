@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{CS 590 Assignment 1}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{Feburary 17, 2021}
+
+\begin{document}
+
+\maketitle
+% http://184.73.111.95/
+\section{Question 1}
+The following options are available when configuring my EC2 instance:
+\begin{itemize}
+    \item 1. Number of instances. I chose $1$
+    \item 2. Purchasing option. I didn't select "request spot instances"
+    \item 3. Network. I selected default network (vpc-7ff2502)
+    \item 4. Subnet. I selected no preference
+    \item 5. Auto-assign Public IP. I selected "use subnet setting (Enable)"
+    \item 6. Placement group. I didn't select "Add instance to placement group"
+    \item 7. Capacity Reservation. I selected "open"
+    \item 8. Domain join directory. I selected "no directory"
+    \item 9. IAM role. I selected "None"
+    \item 10. CPU options. I didn't select "Specify CPU options"
+    \item 11. Shutdown behavior. I selected "stop"
+    \item 12. Stop - Hibernate behavior. I didn't select "Enable hibernation as an additional stop behavior"
+    \item 13. Enable termination protection. I didn't select "Protect against accidental termination"
+    \item 14. Monitoring. I didn't select "Enable CloudWatch detailed monitoring"
+    \item 15. Tenancy. I selected "Shared - Run a shared hardware instance"
+    \item 16. Elastic Inference. I didn't select "Add an Elastic Inference accelerator"
+    \item 17. Credit specification. I didn't select "Unlimited"
+    \item 18. File system. I didn't add a file system.
+    \item 19. Enclave. I didn't select "enable"
+    \item 20. Metadata accessible. I selected "enabled"
+    \item 21. Metadata version. I selected "v1 and v2 (token optional)"
+    \item 22. Metadata token response hop limit. I selected $1$
+    \item23. User data. I selected "As text"
+\end{itemize}
+
+\section{Question 2}
+AWS web console also offers the following useful feature:
+\begin{itemize}
+    \item Elastic Block Store
+    \item Load Balancing
+    \item Auto Scaling
+\end{itemize}
+
+\section{Question 3}
+The instance I launched uses Hardware Virtual Machine (HVM). Virtual machine is one of the two virtualization techniques. The other one is container.
+
+\section{Question 4}
+\begin{itemize}
+    \item Private IP address is used within a local network; and public IP address is used outside the network
+    \item ifconfig shows the private IP
+    \item The public IPV4 address is displayed as a property of the network interface in the console, but it's mapped to the primary private IPv4 address through NAT by AWS, so when ifconfig inspects the network property of my running instance, it will show private IPv4 address
+\end{itemize}
+
+\end{document}

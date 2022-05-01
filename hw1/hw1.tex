@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{CS 590 Homework 1}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{Feburary 10, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+A load balancer divides incoming requests to the data center among all servers. It uses the sender's IP address to choose a server that handles all requests from the sender. So this design makes it easier to add more servers to build a large-scale web site.
+
+\section{Question 2}
+The space between real floor and the raised floor can be used to hold power cables and for air cooling. Chilled air can be pushed under a raised floor and flow upward though the rack to cool equipments.
+
+\section{Question 3}
+\begin{itemize}
+\item Embedded devices are used in data centers to monitor temperature, humidity, and other parameters critical for the performance of a data center. Therefore, embedded system experts should be hired.
+\item Designing a cooling system of a data center requires knowledge of fluid dynamics so that coolant can flow into and out of the data center in large throughput. Therefore, expertise in computational fluid dynamics is needed.
+\end{itemize}
+
+\section{Question 4}
+More space between real floor and raised floor means more fans can be installed to cool the rack better. It also means that more cables can be pushed under the raised floor, which helps to keep the data floor uncluttered and neat.
+
+\section{Question 5}
+\begin{itemize}
+\item Big data centers usually consume about 80 megawatts per year.
+\item According to http://worldstopdatacenters.com/, China Telecom-Inner Mongolia is the most power-consuming data center in the world, consuming 150 megawatts per year.
+\end{itemize}
+
+\section{Question 6}
+A data center usually has 50,000 to 80,000 servers. Since the power of one LED is about 0.25 watt, the total power of LEDs in a data center ranges from $50,000*0.25 = 12,500$ watt to $80,000*0.25 = 20,000$ watt.
+
+\section{Question 7}
+\begin{itemize}
+\item Smaller pod size enables a data center owner to grow the data center continuously in small increments, rather than waiting until a large pod is justified.
+\item Smaller pod size makes it easier to find and repair problems, and keel problems contained within a pod.
+\item Smaller pod size reduces power consumption and cooling requirement.
+\end{itemize}
+
+\section{Question 8}
+A fat tree refers to the network hierarchy that the nodes closer to the root carry more traffic than the nodes further from the root.
+
+\section{Question 9}
+It is possible. Suppose we use a leaf-spine network with 10 spine switches. Since each switch has 1,000 ports and there are 1,000 racks, each switch can connect to all racks. For each pair of racks, there will be 10 different routes, each with capacity of $10Gb$, so the overall capacity between each two racks is $10 * 10Gb = 100Gb$.
+
+\section{Question 10}
+\begin{itemize}
+\item Sites for each zone should be close to some stable power source.
+\item A region should be divided into zones with about equal amount of service density so that no zone is over-utilized or under-utilized.
+\item The number of total sites should be minimized, while the total coverage area should be maximized.
+\end{itemize}
+
+\end{document}

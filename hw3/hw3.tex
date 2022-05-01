@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{CS 590 Homework 3}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{March 9, 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+\begin{itemize}
+    \item We need $P * R$ cables to connect spine switches and Top-of-Rack switch. Each Top-of-Rack switch has $N$ connection. So the total number of wires is $P * R + R * K * N$
+    \item Plugging numbers into my equation, I get $105,000$ cables.
+    \item For each rack, there are 
+    $K$ servers and each server has $N$ physical connections, so the maximum number of connection for each spine switch and Top-of-Rack switch is $K * N$
+\end{itemize}
+
+\section{Question 2}
+Providers desire universal connectivity. For examples, applications may communicate with other applications, or communicate over the Internet. Customers desire safe, isolated communication. a customer's network should be completely isolated form other customer's VMs and containers.
+
+\section{Question 3}
+The underlay network refers to the underlying physical network, which usually provides universal connectivity for all servers and typically uses a leaf-spine architecture. \\
+The overlay network refers to a virtual network imposed on the underlay network by limiting the set of servers with which a given server can communicate.
+
+\section{Question 4}
+The packet will be dropped by switches.
+
+\section{Question 5}
+\begin{itemize}
+    \item (a) If we are using a small network that doesn't send too much packages every month, the cost for additional VLAN may surpass the amount saved and the overall cost would increase. But for a large, congested network, additional VLAN will reduce package drop significantly. In this case, the overall cost will decrease.
+    \item (b) If the newly added VLAN networks are very unstable, then the packet drop may happen much more often and the total number of packets will also increase, so the traffic charge will increase.
+\end{itemize}
+
+\section{Question 6}
+\begin{itemize}
+    \item (a) Assume the data center has 1,000 pods and there are 12 racks per pod. The total cost for installing SDN in this data center is $1,000 * 12 * 1,000 = 12,000,000$ dollars.
+    \item (b) Containers are usually launched in a few minutes, so 3 seconds doesn't affect launch time too much and can be used to configure new containers.
+\end{itemize}
+
+\section{Question 7}
+The two conceptual types of remove storage are \textit{byte-oriented remote file access} and \textit{block-oriented remote disk access}. \\
+Byte-oriented remove file access is also called NAS. It allows apps to share individual files and it works best with containers that use mounting points to store file in the host's file system. But it can only be linked to a particular OS since different operating systems implement different file systems. \\
+Block-oriented remove file access is also called SAN in the industry. SAN has the advantage of working with any operating system, and the mapping from a client's block number to a block in local dist is extremely efficient in SAN. But entities in SAN cannot share individual files easily. Containers cannot use a block-oriented interface directly. 
+
+
+
+\section{Question 8}
+RFS used in enterprises are mostly host-based systems. They use conventional host computers that run file sharing software. The NAS system used by data centers are different. The hardware used in a NAS system is ruggedized to withstand heavy use. Both the software and the hardware in a NAS system are optimized for high performance.
+
+\section{Question 9}
+\begin{itemize}
+    \item (a) We need two data structures: The first one is a map that maps the client's ID to the virtual disk block map of that client. The SAN server only needs one instance of this map. The second one is virtual disk block maps. We need this map for each client.  This map maps the client's block number into the server's physical disk number and the block number on that disk.
+    \item (b) The first map has N rows. The key of each row is the server ID, and the value is a pointer (address). Assuming server IDs are 4-byte integers and addresses are 8-byte integers, the total size of this map is $32N$ bytes.\\
+    Assume each block has 512 bytes. Since there are in total $M$ GBs of disk space available, there are in total $M * 1024^3 / 512$ physical blocks. Therefore, the total number of rows of all virtual disk block maps is $M * 1024^3 / 512$. For each map, there are three columns: the block number, the physical disk number and the block number on the disk. Assuming we use 4-byte integers for all three columns, the total size is $M * 1024^3 * 12 / 512$ bytes $= M * 24$ MBs.
+\end{itemize}
+
+\section{Question 10}
+When a read or write request arrives at the SAN server, the server uses the client’s ID to find the map for the client. The server can then use the map to transform the client’s block number into the number of a local physical disk and a block on that disk. The server performs the requested operation on the specified block on the specified local disk.
+
+\end{document}

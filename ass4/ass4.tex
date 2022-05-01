@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{listings}
+
+\title{CS 590 Assignment 4}
+\author{Luke Jiang (jiang700@purdue.edu) }
+\date{March 21, 2021}
+
+\begin{document}
+
+\maketitle
+
+% link to website: http://35.193.196.222/
+\section{Question 1}
+Question: List some key difference and similarities you’ve encounter when creating VM and webserver on AWS and GCP.\\
+
+Similarities:
+\begin{itemize}
+    \item Both have ways to specify the OS of the VM.
+    \item Both have ways to specify VM processor type, number of processors, and memory size
+    \item Both have ways to specify which kinds of internet traffic to accept.
+\end{itemize}
+
+Differences:
+\begin{itemize}
+    \item AWS doesn't have the option to specify regions ans zones
+    \item AWS can directly specify the number of processors and memory, but in GCP we need to choose a series and machine type that give fewer options.
+    \item AWS doesn't have the machine family of GCP
+    \item AWS provides options such as shutdown behavior, monitoring, elastic inference and other other options that can specify the VM in more granularity. 
+\end{itemize}
+
+\section{Question 2}
+Question: Explain how the different features or selection of machine types (you choose) would affect this project.\\
+\begin{itemize}
+    \item Regions and Zones: VM instances are zonal resources, which means that they can only be used by other resources in the same zone. If we want to attach a zonal persistent disk to an instance for this project, both resources must be in the same zone.
+    \item Machine Family: This option offers a range of resources suitable for each kind of application. They also differ in price. For our application, a general-purpose one is the most suitable in terms of price and performance. Choosing more advanced families like compute-optimized may enhance the performance of the application, but the price will also increase. 
+    \item Series and Machine Type: This option specifies the processor type, number of processors, and memory size of the VM. For our assignment, we should choose the combination that is most suitable for the computation demand of our application. Too much resource will increase the cost, and too few resource will slow down the application.
+    \item Firewall: This option specifies which kind of traffic to accept. For our application, we must accept HTTP traffic for the server to work.
+\end{itemize}
+
+
+
+
+
+\end{document}
